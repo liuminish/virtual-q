@@ -29,9 +29,13 @@ Type: restaurant\
 ID: 1 (Can be either 1, 2 or 3)\
 Password: this does not matter for the demo
 
-Click `LOG IN` to log in and see restaurant main page, which consists of restaurant details and current queue numbers.
-
-To close any queue numbers, click on `close`.
+After logging in, you will be redirected to restaurant main page, on which the following views/actions are available:\
+1. View restaurant details
+2. Edit restaurant details
+3. Log out
+4. View list of queue numbers for restaurant
+5. Close queue numbers (for queue numbers of users who have been served)
+6. Cancel queue numbers (for queue numbers of users who have not turned up)
 ### Logging in as user
 Click `log in` on the top right corner.
 
@@ -39,16 +43,19 @@ Type: user\
 ID: 1 (Can be either 1, 2 or 3)\
 Password: this does not matter for the demo
 
-Click `LOG IN` to log in and see user's main page, which consists of user's details and current queue numbers.
-
-To cancel any queue numbers, click on `cancel`.\
-To get new queue numbers, go to restaurant list.
+After logging in, you will be redirected to user's main page, on which the following views/actions are available:\
+1. View user details
+2. Edit user details
+3. Log out
+4. View list of queue numbers for user
+5. Cancel queue numbers
 ### Viewing restaurant list and getting queue number
-Click on top left icon to view list of restaurants.\
+Click `Virtual Q` to view list of restaurants.\
 Click `Generate` to obtain queue number.\
 If user is not logged in, he will be redirected to log in page.
 ## Future Enhancements
 ### SSO log in features
 - Authenticate user/restaurant logins with tools such as Auth0.
 - Creation of user/restaurant accounts
-
+### Search, sort and filtering of lists
+### Validation of user phone numbers
