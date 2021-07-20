@@ -80,9 +80,10 @@ class Users extends React.Component {
                         <TableCell align="left">{queue.pax}</TableCell>
                         <TableCell align="left">{queue.is_cancelled ? 'Cancelled' : queue.is_current ? 'Pending' : 'Closed'}</TableCell>
                         <TableCell align="left">
-                          <Button variant="contained" color="primary" onClick={() => this.cancelQueue(queue)}>
-                            Cancel
-                          </Button>
+                          {(queue.is_cancelled || !queue.is_current) ?
+                            (<Button variant="contained" color="primary" disabled>Cancel</Button>) :
+                            (<Button variant="contained" color="primary" onClick={() => this.cancelQueue(queue)}>Cancel</Button>)
+                          }
                         </TableCell>
                       </TableRow>
                     ))}

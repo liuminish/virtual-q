@@ -31,11 +31,17 @@ class App extends React.Component {
   }
 
   updateCurrentRestaurant(restaurant) {
-    this.setState({ currentRestaurant: restaurant })
+    this.setState({
+      currentRestaurant: restaurant,
+      redirectTo: ''
+    })
   }
 
   updateCurrentUser(user) {
-    this.setState({ currentUser: user })
+    this.setState({
+      currentUser: user,
+      redirectTo: ''
+    })
   }
 
   updateRestaurantList(restaurants) {

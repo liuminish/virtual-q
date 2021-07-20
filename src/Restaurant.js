@@ -83,9 +83,10 @@ class Restaurant extends React.Component {
                         <TableCell align="left">{queue.pax}</TableCell>
                         <TableCell align="left">{queue.is_cancelled ? 'Cancelled' : queue.is_current ? 'Pending' : 'Closed'}</TableCell>
                         <TableCell align="left">
-                          <Button variant="contained" color="primary" onClick={() => this.closeQueue(queue)}>
-                            Close
-                          </Button>
+                          {(queue.is_cancelled || !queue.is_current) ?
+                            (<Button variant="contained" color="primary" disabled>Close</Button>) :
+                            (<Button variant="contained" color="primary" onClick={() => this.closeQueue(queue)}>Close</Button>)
+                          }
                         </TableCell>
                       </TableRow>
                     ))}
