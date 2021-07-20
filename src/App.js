@@ -27,6 +27,7 @@ class App extends React.Component {
     this.updateQueueNumberList = this.updateQueueNumberList.bind(this);
     this.generateQueueNumber = this.generateQueueNumber.bind(this);
     this.editQueue = this.editQueue.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   updateCurrentRestaurant(restaurant) {
@@ -43,6 +44,14 @@ class App extends React.Component {
 
   updateQueueNumberList(queueNumbers) {
     this.setState({ queueNumberList: queueNumbers })
+  }
+
+  logOut() {
+    this.setState({
+      currentRestaurant: {},
+      currentUser: {},
+      redirectTo: '/'
+    })
   }
 
   generateQueueNumber(restaurantId, pax) {
@@ -78,11 +87,20 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navibar />
+        <Navibar
+          currentUser={this.state.currentUser}
+          currentRestaurant={this.state.currentRestaurant}
+        />
 
         <Switch>
           <Route path='/' exact>
-            <Mainpage />
+            <RestaurantList
+              restaurantList={this.state.restaurantList}
+              currentUser={this.state.currentUser}
+              redirectTo={this.state.redirectTo}
+              updateRestaurantList={this.updateRestaurantList}
+              generateQueueNumber={this.generateQueueNumber}
+            />
           </Route>
           <Route path='/login' exact>
             <Login
@@ -103,16 +121,20 @@ class App extends React.Component {
             <Restaurant
               currentRestaurant={this.state.currentRestaurant}
               queueNumberList={this.state.queueNumberList}
+              redirectTo={this.state.redirectTo}
               updateQueueNumberList={this.updateQueueNumberList}
               editQueue={this.editQueue}
+              logOut={this.logOut}
             />
           </Route>
           <Route path='/users/:userId' exact>
             <Users
               currentUser={this.state.currentUser}
               queueNumberList={this.state.queueNumberList}
+              redirectTo={this.state.redirectTo}
               updateQueueNumberList={this.updateQueueNumberList}
               editQueue={this.editQueue}
+              logOut={this.logOut}
             />
           </Route>
 

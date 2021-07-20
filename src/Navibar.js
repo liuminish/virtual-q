@@ -9,8 +9,8 @@ class Navibar extends React.Component {
     this.state = {
 
     }
-
   }
+
 
   render() {
     return (
@@ -29,9 +29,12 @@ class Navibar extends React.Component {
               <Link to="/">
                 <Typography variant="h6">Virtual Q</Typography>
               </Link>
-              <Link to="/login">
-                <Button color="inherit">Login</Button>
-              </Link>
+              {this.props.currentUser.id ?
+                (<Link to={`/users/${this.props.currentUser.id}`}><Button color="inherit">User Profile</Button></Link>) :
+                this.props.currentRestaurant.id ?
+                  (<Link to={`/restaurants/${this.props.currentRestaurant.id}`}><Button color="inherit">Restaurant Profile</Button></Link>) :
+                    (<Link to="/login"><Button color="inherit">Log in</Button></Link>)}
+
             </Grid>
           </Toolbar>
         </AppBar>
