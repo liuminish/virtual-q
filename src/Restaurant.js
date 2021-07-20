@@ -16,7 +16,8 @@ class Restaurant extends React.Component {
     this.updateAddress = this.updateAddress.bind(this)
     this.updateCapacity = this.updateCapacity.bind(this)
     this.updateRestaurant = this.updateRestaurant.bind(this)
-    this.closeQueue = this.closeQueue.bind(this);
+    this.closeQueue = this.closeQueue.bind(this)
+    this.cancelQueue = this.cancelQueue.bind(this)
   }
 
   openModal() {
@@ -53,6 +54,12 @@ class Restaurant extends React.Component {
   closeQueue(queue) {
     let newQueue = { ...queue }
     newQueue.is_current = 0
+    this.props.editQueue(newQueue)
+  }
+
+  cancelQueue(queue) {
+    let newQueue = { ...queue }
+    newQueue.is_cancelled = 1
     this.props.editQueue(newQueue)
   }
 
@@ -132,8 +139,14 @@ class Restaurant extends React.Component {
                         <TableCell align="left">{queue.is_cancelled ? 'Cancelled' : queue.is_current ? 'Pending' : 'Closed'}</TableCell>
                         <TableCell align="left">
                           {(queue.is_cancelled || !queue.is_current) ?
-                            (<Button variant="contained" color="primary" disabled>Close</Button>) :
-                            (<Button variant="contained" color="primary" onClick={() => this.closeQueue(queue)}>Close</Button>)
+                            (<Container>
+                              <Button style={{'margin-right': '5px'}} variant="contained" color="primary" disabled>Close</Button>
+                              <Button variant="contained" color="primary" disabled>Cancel</Button>
+                            </Container>) :
+                            (<Container>
+                              <Button style={{'margin-right': '5px'}} variant="contained" color="primary" onClick={() => this.closeQueue(queue)}>Close</Button>
+                              <Button variant="contained" color="primary" onClick={() => this.cancelQueue(queue)}>Cancel</Button>
+                            </Container>)
                           }
                         </TableCell>
                       </TableRow>
