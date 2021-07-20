@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Readme for Technical Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Problem (Health and Safety in Public Places)
 
-## Available Scripts
+Despite safe distancing measures being put in place, some F&B establishments have trouble maintaining the required distance between patrons due to lack of space outside these establishments.
 
-In the project directory, you can run:
+## Solution
 
-### `yarn start`
+A virtual queue system that allows people to queue for restaurants without being physically there, therefore reducing crowds outside of restaurants.
 
-Runs the app in the development mode.\
+## Technology
+### SQLite, Express.js, React.js, NodeJS
+- Full javascript stack, hence developers would only need to be proficient in one language
+- SQLite is a lightweight DBMS with simple operations and minimal design which is fast yet fits the requirements of a simple virtual queue system.
+- Open-sourced framework backed by community support
+## Steps to run demo
+### Starting up the server
+`cd server` to enter the server directory\
+`node migration` to run migration file for database\
+`node seed` to run seed file for database\
+`node server` to start server
+### Running the app
+`npm start` in the main directory to run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Logging in as restaurant
+Click `log in` on the top right corner.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Type: restaurant\
+ID: 1 (Can be either 1, 2 or 3)\
+Password: this does not matter for the demo
 
-### `yarn test`
+Click `LOG IN` to log in and see restaurant main page, which consists of restaurant details and current queue numbers.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To close any queue numbers, click on `close`.
+### Logging in as user
+Click `log in` on the top right corner.
 
-### `yarn build`
+Type: user\
+ID: 1 (Can be either 1, 2 or 3)\
+Password: this does not matter for the demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Click `LOG IN` to log in and see user's main page, which consists of user's details and current queue numbers.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To cancel any queue numbers, click on `cancel`.\
+To get new queue numbers, go to restaurant list.
+### Viewing restaurant list and getting queue number
+Click on top left icon to view list of restaurants.\
+Click `Generate` to obtain queue number.\
+If user is not logged in, he will be redirected to log in page.
+## Future Enhancements
+### SSO log in features
+- Authenticate user/restaurant logins with tools such as Auth0.
+- Creation of user/restaurant accounts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
