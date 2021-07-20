@@ -42,11 +42,52 @@ fetchData.getRestaurant = restaurantId => {
   });
 };
 
+
+// PUT/update restaurant
+fetchData.updateRestaurant = restaurant => {
+  const url = `${baseUrl}/restaurants/${restaurant.id}`;
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ restaurant: restaurant })
+  };
+  return fetch(url, fetchOptions).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      return jsonResponse;
+    });
+  });
+};
+
 // GET user
 fetchData.getUser = userId => {
   const url = `${baseUrl}/users/${userId}`;
 
   return fetch(url).then(response => {
+    if (!response.ok) {
+      return new Promise(resolve => resolve(null));
+    }
+    return response.json().then(jsonResponse => {
+      return jsonResponse;
+    });
+  });
+};
+
+// PUT/update user
+fetchData.updateUser = user => {
+  const url = `${baseUrl}/users/${user.id}`;
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ user: user })
+  };
+  return fetch(url, fetchOptions).then(response => {
     if (!response.ok) {
       return new Promise(resolve => resolve(null));
     }
@@ -108,7 +149,6 @@ fetchData.getRestaurantQueueNumbers = restaurantId => {
 
 // PUT/edit queue number
 fetchData.editQueue = queue => {
-  console.log('reached fetch-data', queue)
   const url = `${baseUrl}/queue/${queue.id}`;
   const fetchOptions = {
     method: 'PUT',
@@ -122,7 +162,6 @@ fetchData.editQueue = queue => {
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      console.log('done fetch-data', jsonResponse)
       return jsonResponse;
     });
   });

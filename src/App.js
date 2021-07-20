@@ -25,6 +25,8 @@ class App extends React.Component {
     this.updateCurrentUser = this.updateCurrentUser.bind(this);
     this.updateRestaurantList = this.updateRestaurantList.bind(this);
     this.updateQueueNumberList = this.updateQueueNumberList.bind(this);
+    this.updateRestaurant = this.updateRestaurant.bind(this);
+    this.updateUser = this.updateUser.bind(this);
     this.generateQueueNumber = this.generateQueueNumber.bind(this);
     this.editQueue = this.editQueue.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -50,6 +52,18 @@ class App extends React.Component {
 
   updateQueueNumberList(queueNumbers) {
     this.setState({ queueNumberList: queueNumbers })
+  }
+
+  async updateRestaurant(restaurant) {
+    await fetchData.updateRestaurant(restaurant).then(restaurant => {
+      this.setState({ currentRestaurant: restaurant })
+    })
+  }
+
+  async updateUser(user) {
+    await fetchData.updateUser(user).then(user => {
+      this.setState({ currentUser: user })
+    })
   }
 
   logOut() {
@@ -128,6 +142,7 @@ class App extends React.Component {
               currentRestaurant={this.state.currentRestaurant}
               queueNumberList={this.state.queueNumberList}
               redirectTo={this.state.redirectTo}
+              updateRestaurant={this.updateRestaurant}
               updateQueueNumberList={this.updateQueueNumberList}
               editQueue={this.editQueue}
               logOut={this.logOut}
@@ -138,6 +153,7 @@ class App extends React.Component {
               currentUser={this.state.currentUser}
               queueNumberList={this.state.queueNumberList}
               redirectTo={this.state.redirectTo}
+              updateUser={this.updateUser}
               updateQueueNumberList={this.updateQueueNumberList}
               editQueue={this.editQueue}
               logOut={this.logOut}

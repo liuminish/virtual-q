@@ -1,12 +1,46 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Grid, Paper, Button, Container, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
+import { Grid, Paper, Button, Container, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Modal, TextField } from '@material-ui/core'
 import fetchData from './fetch-data'
 
 class Users extends React.Component {
   constructor(props) {
     super(props)
-    this.cancelQueue = this.cancelQueue.bind(this);
+    this.state = {
+      showModal: false,
+      updatedUser: {},
+    }
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.updateNumber = this.updateNumber.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+    this.cancelQueue = this.cancelQueue.bind(this)
+  }
+
+  openModal() {
+    this.setState({ showModal: true })
+  }
+
+  closeModal() {
+    this.setState({ showModal: false })
+  }
+
+  updateName(event) {
+    const updatedUser = {...this.state.updatedUser}
+    updatedUser.name = event.target.value
+    this.setState({ updatedUser: updatedUser })
+  }
+
+  updateNumber(event) {
+    const updatedUser = { ...this.state.updatedUser }
+    updatedUser.phone_number = event.target.value
+    this.setState({ updatedUser: updatedUser })
+  }
+
+  updateUser() {
+    this.props.updateUser(this.state.updatedUser)
+    this.closeModal()
   }
 
   cancelQueue(queue) {
@@ -20,6 +54,8 @@ class Users extends React.Component {
       // get all queue numbers for current user
       const queueNumbers = await fetchData.getUserQueueNumbers(this.props.currentUser.id)
       this.props.updateQueueNumberList(queueNumbers)
+      // update user state
+      this.setState({updatedUser: this.props.currentUser})
     }
   }
 
@@ -44,9 +80,14 @@ class Users extends React.Component {
               <p>Name: {name}</p>
               <p>Phone number: {phone_number}</p>
             </Paper>
-            <Button variant="contained" color="primary" onClick={this.props.logOut}>
-              Log out
-            </Button>
+            <Container>
+              <Button style={{'margin': '15px'}} variant="contained" color="primary" onClick={this.openModal}>
+                Edit
+              </Button>
+              <Button style={{ 'margin': '15px' }} variant="contained" color="primary" onClick={this.props.logOut}>
+                Log out
+              </Button>
+            </Container>
           </Grid>
           <Grid
             container
@@ -92,6 +133,35 @@ class Users extends React.Component {
               </TableContainer>
             </Container>
           </Grid>
+          <Modal
+            open={this.state.showModal}
+            onClose={this.closeModal}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <div style={{
+              'display': 'inline-block', 'position': 'absolute', 'top': '50%', 'left': '50%', 'margin-right': '-50%', 'transform': 'translate(-50%, -50%)', 'padding': '30px', 'background-color': 'white', 'border-radius': '8px'
+            }}>
+              <h2 id="simple-modal-title">Edit Profile</h2>
+              <p id="simple-modal-description">
+                <form noValidate autoComplete="off">
+                  <TextField
+                    label="New name"
+                    onChange={this.updateName}
+                  />
+                </form>
+                <form noValidate autoComplete="off">
+                  <TextField
+                    label="New number"
+                    onChange={this.updateNumber}
+                  />
+                </form>
+              </p>
+              <Button variant="contained" color="primary" onClick={this.updateUser}>
+                Update
+              </Button>
+            </div>
+          </Modal>
         </div>
       )
     }

@@ -65,7 +65,6 @@ queueRouter.put('/:queueId', (req, res, next) => {
             }
         })
     } else if (req.body.queue.is_current) {
-        console.log('server archiving queue')
         const sql = `UPDATE QueueNumbers SET is_current=0`;
 
         db.run(sql, (err) => {

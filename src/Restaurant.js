@@ -1,12 +1,53 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Grid, Paper, Button, Container, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
+import { Grid, Paper, Button, Container, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Modal, TextField } from '@material-ui/core'
 import fetchData from './fetch-data'
 
 class Restaurant extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      showModal: false,
+      updatedRestaurant: {},
+    }
+    this.openModal = this.openModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.updateName = this.updateName.bind(this)
+    this.updateAddress = this.updateAddress.bind(this)
+    this.updateCapacity = this.updateCapacity.bind(this)
+    this.updateRestaurant = this.updateRestaurant.bind(this)
     this.closeQueue = this.closeQueue.bind(this);
+  }
+
+  openModal() {
+    this.setState({ showModal: true })
+  }
+
+  closeModal() {
+    this.setState({ showModal: false })
+  }
+
+  updateName(event) {
+    const updatedRestaurant = { ...this.state.updatedRestaurant }
+    updatedRestaurant.name = event.target.value
+    this.setState({ updatedRestaurant: updatedRestaurant })
+  }
+
+  updateAddress(event) {
+    const updatedRestaurant = { ...this.state.updatedRestaurant }
+    updatedRestaurant.address = event.target.value
+    this.setState({ updatedRestaurant: updatedRestaurant })
+  }
+
+  updateCapacity(event) {
+    const updatedRestaurant = { ...this.state.updatedRestaurant }
+    updatedRestaurant.capacity = event.target.value
+    this.setState({ updatedRestaurant: updatedRestaurant })
+  }
+
+  updateRestaurant() {
+    this.props.updateRestaurant(this.state.updatedRestaurant)
+    this.closeModal()
   }
 
   closeQueue(queue) {
@@ -20,6 +61,8 @@ class Restaurant extends React.Component {
       // get all queue numbers for current restaurant
       const queueNumbers = await fetchData.getRestaurantQueueNumbers(this.props.currentRestaurant.id)
       this.props.updateQueueNumberList(queueNumbers)
+      // update restaurant state
+      this.setState({ updatedRestaurant: this.props.currentRestaurant })
     }
   }
 
@@ -47,9 +90,14 @@ class Restaurant extends React.Component {
               <p>Opening time: {open_time}</p>
               <p>Closing time: {close_time}</p>
             </Paper>
-            <Button variant="contained" color="primary" onClick={this.props.logOut}>
-              Log out
-            </Button>
+            <Container>
+              <Button style={{ 'margin': '15px' }} variant="contained" color="primary" onClick={this.openModal}>
+                Edit
+              </Button>
+              <Button style={{ 'margin': '15px' }} variant="contained" color="primary" onClick={this.props.logOut}>
+                Log out
+              </Button>
+            </Container>
           </Grid>
           <Grid
             container
@@ -95,6 +143,41 @@ class Restaurant extends React.Component {
               </TableContainer>
             </Container>
           </Grid>
+          <Modal
+            open={this.state.showModal}
+            onClose={this.closeModal}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <div style={{
+              'display': 'inline-block', 'position': 'absolute', 'top': '50%', 'left': '50%', 'margin-right': '-50%', 'transform': 'translate(-50%, -50%)', 'padding': '30px', 'background-color': 'white', 'border-radius': '8px'
+            }}>
+              <h2 id="simple-modal-title">Edit Restaurant</h2>
+              <p id="simple-modal-description">
+                <form noValidate autoComplete="off">
+                  <TextField
+                    label="New name"
+                    onChange={this.updateName}
+                  />
+                </form>
+                <form noValidate autoComplete="off">
+                  <TextField
+                    label="New address"
+                    onChange={this.updateAddress}
+                  />
+                </form>
+                <form noValidate autoComplete="off">
+                  <TextField
+                    label="New capacity"
+                    onChange={this.updateCapacity}
+                  />
+                </form>
+              </p>
+              <Button variant="contained" color="primary" onClick={this.updateRestaurant}>
+                Update
+              </Button>
+            </div>
+          </Modal>
         </div>
       )
     }

@@ -32,4 +32,29 @@ usersRouter.get('/:userId', (req, res, next) => {
     res.status(200).json(req.user)
 })
 
+// PUT/edit user
+usersRouter.put('/:userId', (req, res, next) => {
+    const { name, phone_number } = req.body.user;
+    const sql = `UPDATE Users SET name=$name, phone_number=$phone_number WHERE id=$id`;
+    const values = { $id: req.params.userId, $name: name, $phone_number: phone_number };
+
+    if (!name || !phone_number) {
+        res.sendStatus(400)
+    } else {
+        db.run(sql, values, (err) => {
+            if (err) {
+                next(err)
+            } else {
+                db.get(`SELECT * FROM Users WHERE id=$id`, { $id: req.params.userId }, (err, user) => {
+                    if (err) {
+                        next(err)
+                    } else {
+                        res.status(200).json(user)
+                    }
+                })
+            }
+        })
+    }
+})
+
 module.exports = usersRouter;

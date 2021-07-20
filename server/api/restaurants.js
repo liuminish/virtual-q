@@ -88,11 +88,11 @@ restaurantsRouter.post('/', (req, res, next) => {
 // PUT/update restaurant
 restaurantsRouter.put('/:restaurantId', (req, res, next) => {
 
-    const { name, password, address, capacity, open_time, close_time } = req.body.restaurant;
-    const sql = `UPDATE Restaurants SET name=$name, password=$password, address=$address, capacity=$capacity, open_time=$open_time, close_time=$close_time WHERE id=$id`;
-    const values = { $id: req.params.recipeId, $name: name, $password: password, $address: address, $capacity: capacity, $open_time: open_time, $close_time: close_time };
+    const { name, address, capacity } = req.body.restaurant;
+    const sql = `UPDATE Restaurants SET name=$name, address=$address, capacity=$capacity WHERE id=$id`;
+    const values = { $id: req.params.restaurantId, $name: name, $address: address, $capacity: capacity };
 
-    if (!name || !password || !address || !capacity || !open_time || !close_time) {
+    if (!name || !address || !capacity ) {
         res.sendStatus(400)
     } else {
         db.run(sql, values, (err) => {
@@ -103,7 +103,7 @@ restaurantsRouter.put('/:restaurantId', (req, res, next) => {
                     if (err) {
                         next(err)
                     } else {
-                        res.status(200).json({ restaurant: restaurant })
+                        res.status(200).json(restaurant)
                     }
                 })
             }
