@@ -59,3 +59,5 @@ If user is not logged in, he will be redirected to log in page.
 - Creation of user/restaurant accounts
 ### Search, sort and filtering of lists
 ### Validation of user phone numbers
+### Include waiting time and display of number of pax in queue
+### Custom error page

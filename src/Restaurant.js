@@ -20,43 +20,41 @@ class Restaurant extends React.Component {
     this.cancelQueue = this.cancelQueue.bind(this)
   }
 
+  // functions relating to opening/closing of modal
   openModal() {
     this.setState({ showModal: true })
   }
-
   closeModal() {
     this.setState({ showModal: false })
   }
 
+  // functions for controlling of components
   updateName(event) {
     const updatedRestaurant = { ...this.state.updatedRestaurant }
     updatedRestaurant.name = event.target.value
     this.setState({ updatedRestaurant: updatedRestaurant })
   }
-
   updateAddress(event) {
     const updatedRestaurant = { ...this.state.updatedRestaurant }
     updatedRestaurant.address = event.target.value
     this.setState({ updatedRestaurant: updatedRestaurant })
   }
-
   updateCapacity(event) {
     const updatedRestaurant = { ...this.state.updatedRestaurant }
     updatedRestaurant.capacity = event.target.value
     this.setState({ updatedRestaurant: updatedRestaurant })
   }
-
   updateRestaurant() {
     this.props.updateRestaurant(this.state.updatedRestaurant)
     this.closeModal()
   }
 
+  // functions relating to closing/cancelling of queue numbers
   closeQueue(queue) {
     let newQueue = { ...queue }
     newQueue.is_current = 0
     this.props.editQueue(newQueue)
   }
-
   cancelQueue(queue) {
     let newQueue = { ...queue }
     newQueue.is_cancelled = 1
@@ -76,11 +74,13 @@ class Restaurant extends React.Component {
   render() {
     const { id, name, address, capacity, open_time, close_time } = this.props.currentRestaurant
 
+    // redirect to main page after logging out
     if (this.props.redirectTo === '/') {
       return <Redirect to="/" />
     } else {
       return (
         <div>
+          {/* Restaurant details */}
           <Grid
             container
             spacing={0}
@@ -106,6 +106,8 @@ class Restaurant extends React.Component {
               </Button>
             </Container>
           </Grid>
+
+          {/* List of queue numbers */}
           <Grid
             container
             spacing={0}
@@ -156,6 +158,8 @@ class Restaurant extends React.Component {
               </TableContainer>
             </Container>
           </Grid>
+
+          {/* Modal for updating of restaurant details */}
           <Modal
             open={this.state.showModal}
             onClose={this.closeModal}

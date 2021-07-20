@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom'
 import fetchData from './fetch-data';
 
 import Navibar from './Navibar.js'
-import Mainpage from './Mainpage.js'
 import Login from './Login.js'
 import RestaurantList from './RestaurantList.js'
 import Restaurant from './Restaurant.js'
@@ -32,6 +31,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
 
+  // update current restaurant after logging in
   updateCurrentRestaurant(restaurant) {
     this.setState({
       currentRestaurant: restaurant,
@@ -39,6 +39,7 @@ class App extends React.Component {
     })
   }
 
+  // update current user after logging in
   updateCurrentUser(user) {
     this.setState({
       currentUser: user,
@@ -46,26 +47,31 @@ class App extends React.Component {
     })
   }
 
+  // update list of restaurants upon loading of restaurants page
   updateRestaurantList(restaurants) {
     this.setState({ restaurantList: restaurants })
   }
 
+  // update list of queue number for user/restaurant logged in
   updateQueueNumberList(queueNumbers) {
     this.setState({ queueNumberList: queueNumbers })
   }
 
+  // update restaurant details
   async updateRestaurant(restaurant) {
     await fetchData.updateRestaurant(restaurant).then(restaurant => {
       this.setState({ currentRestaurant: restaurant })
     })
   }
 
+  // update user details
   async updateUser(user) {
     await fetchData.updateUser(user).then(user => {
       this.setState({ currentUser: user })
     })
   }
 
+  // log out of user/restaurant account
   logOut() {
     this.setState({
       currentRestaurant: {},
@@ -74,6 +80,7 @@ class App extends React.Component {
     })
   }
 
+  // generate queue number for user
   generateQueueNumber(restaurantId, pax) {
     // get current date time
     const currentdate = new Date();
@@ -100,6 +107,7 @@ class App extends React.Component {
     )
   }
 
+  // edit queue number, used for cancelling or closing of queue number
   async editQueue(queue) {
     await fetchData.editQueue(queue)
   }

@@ -19,23 +19,23 @@ class RestaurantList extends React.Component {
     this.generateQueueNumber = this.generateQueueNumber.bind(this);
   }
 
+  // functions relating to opening/closing of modal
   openModal(restaurant) {
-    // if user is logged in
+    // if user is logged in, open modal for queue number generation
     if (this.props.currentUser.id) {
       this.setState({
         showModal: true,
         currentRestaurant: restaurant,
       })
-    } else {
+    } else { // if user is not logged in, redirect to log in page
       this.setState({redirectTo: 'login'})
     }
-
   }
-
   closeModal() {
     this.setState({ showModal: false })
   }
 
+  // functions for controlling of components
   updatePax(event) {
     this.setState({ pax: event.target.value })
     if (event.target.value > this.state.currentRestaurant.capacity) {
@@ -45,6 +45,7 @@ class RestaurantList extends React.Component {
     }
   }
 
+  // generate queue number
   generateQueueNumber() {
     if (this.state.errorMessage === '') {
       this.props.generateQueueNumber(this.state.currentRestaurant.id, this.state.pax)
@@ -58,13 +59,15 @@ class RestaurantList extends React.Component {
   }
 
   render() {
+    // redirect to log in page if user is not logged in
     if (this.state.redirectTo === 'login') {
       return <Redirect to={`/login`} />
-    } else if (this.props.redirectTo === 'users') {
+    } else if (this.props.redirectTo === 'users') { // redirect to user main page after queue number generation
       return <Redirect to={`/users/${this.props.currentUser.id}`} />
     } else {
       return (
         <div>
+          {/* List of restaurants */}
           <Grid
             container
             spacing={0}
@@ -104,6 +107,8 @@ class RestaurantList extends React.Component {
               </TableContainer>
             </Container>
           </Grid>
+
+          {/* Modal for queue number generation */}
           <Modal
             open={this.state.showModal}
             onClose={this.closeModal}

@@ -4,14 +4,6 @@ import { Menu } from '@material-ui/icons'
 import { Link } from 'react-router-dom';
 
 class Navibar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-
-    }
-  }
-
-
   render() {
     return (
       <div>
@@ -23,6 +15,7 @@ class Navibar extends React.Component {
               justifyContent="space-between"
               alignItems="center"
             >
+              {/* Menu icon current linked to restaurant list, to be used for actual menu after more features are added */}
               <IconButton color="inherit" aria-label="menu">
                 <Link to="/restaurants"><Menu /></Link>
               </IconButton>

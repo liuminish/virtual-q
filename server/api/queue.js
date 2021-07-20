@@ -47,7 +47,7 @@ queueRouter.post('/', (req, res, next) => {
 
 // PUT/edit queue number
 queueRouter.put('/:queueId', (req, res, next) => {
-
+    // if queue number is being cancelled
     if (req.body.queue.is_cancelled) {
         const sql = `UPDATE QueueNumbers SET is_cancelled=1`;
 
@@ -64,7 +64,7 @@ queueRouter.put('/:queueId', (req, res, next) => {
                 })
             }
         })
-    } else if (req.body.queue.is_current) {
+    } else if (req.body.queue.is_current) { // if queue number is being closed
         const sql = `UPDATE QueueNumbers SET is_current=0`;
 
         db.run(sql, (err) => {
@@ -85,6 +85,7 @@ queueRouter.put('/:queueId', (req, res, next) => {
 
 // GET all queue numbers
 queueRouter.get('/', (req, res, next) => {
+    // if request is for queue numbers for particular user
     if (req.query.user_id) {
         const sql = `SELECT * FROM QueueNumbers LEFT OUTER JOIN Restaurants on QueueNumbers.restaurant_id = Restaurants.id WHERE user_id=$user_id`;
         const values = { $user_id: req.query.user_id }
@@ -96,7 +97,7 @@ queueRouter.get('/', (req, res, next) => {
                 res.status(200).json(queueNumbers)
             }
         })
-    } else if (req.query.restaurant_id) {
+    } else if (req.query.restaurant_id) { // if request is for queue numbers for particular restaurant
         const sql = `SELECT * FROM QueueNumbers LEFT OUTER JOIN Users on QueueNumbers.user_id = Users.id WHERE restaurant_id=$restaurant_id`;
         const values = { $restaurant_id: req.query.restaurant_id }
 

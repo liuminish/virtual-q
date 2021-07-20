@@ -18,31 +18,31 @@ class Users extends React.Component {
     this.cancelQueue = this.cancelQueue.bind(this)
   }
 
+  // functions relating to opening/closing of modal
   openModal() {
     this.setState({ showModal: true })
   }
-
   closeModal() {
     this.setState({ showModal: false })
   }
 
+  // functions for controlling of components
   updateName(event) {
     const updatedUser = {...this.state.updatedUser}
     updatedUser.name = event.target.value
     this.setState({ updatedUser: updatedUser })
   }
-
   updateNumber(event) {
     const updatedUser = { ...this.state.updatedUser }
     updatedUser.phone_number = event.target.value
     this.setState({ updatedUser: updatedUser })
   }
-
   updateUser() {
     this.props.updateUser(this.state.updatedUser)
     this.closeModal()
   }
 
+  // cancelling of queue number
   cancelQueue(queue) {
     let newQueue = {...queue}
     newQueue.is_cancelled = 1
@@ -62,11 +62,13 @@ class Users extends React.Component {
   render() {
     const { id, name, phone_number } = this.props.currentUser;
 
+    // redirect to main page after logging out
     if (this.props.redirectTo === '/') {
       return <Redirect to="/" />
     } else {
       return (
         <div>
+          {/* User details */}
           <Grid
             container
             spacing={0}
@@ -89,6 +91,8 @@ class Users extends React.Component {
               </Button>
             </Container>
           </Grid>
+
+          {/* List of queue numbers */}
           <Grid
             container
             spacing={0}
@@ -133,6 +137,8 @@ class Users extends React.Component {
               </TableContainer>
             </Container>
           </Grid>
+
+          {/* Modal for updating of user details */}
           <Modal
             open={this.state.showModal}
             onClose={this.closeModal}

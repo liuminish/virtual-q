@@ -13,18 +13,19 @@ class Login extends React.Component {
     }
     this.updateType = this.updateType.bind(this);
     this.updateId = this.updateId.bind(this);
-    this.signIn = this.signIn.bind(this);
+    this.logIn = this.logIn.bind(this);
   }
 
+  // functions for controlling of components
   updateType(event) {
     this.setState({ type: event.target.value })
   }
-
   updateId(event) {
     this.setState({ id: event.target.value })
   }
 
-  signIn() {
+  // log into account for restaurant/user
+  logIn() {
     if (this.state.type === 'restaurant') {
       fetchData.getRestaurant(this.state.id).then(restaurant => {
         this.props.updateCurrentRestaurant(restaurant)
@@ -80,7 +81,7 @@ class Login extends React.Component {
               />
             </form>
           </Grid>
-          <Button variant="contained" color="primary" onClick={this.signIn}>
+          <Button variant="contained" color="primary" onClick={this.logIn}>
             Log in
           </Button>
         </div>
