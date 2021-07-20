@@ -31,7 +31,7 @@ restaurantsRouter.get('/', (req, res, next) => {
             if (err) {
                 next(err)
             } else {
-                res.status(200).json({ restaurants: restaurants })
+                res.status(200).json(restaurants)
             }
         })
     }
@@ -43,7 +43,7 @@ restaurantsRouter.get('/', (req, res, next) => {
             if (err) {
                 next(err)
             } else {
-                res.status(200).json({ restaurants: restaurants })
+                res.status(200).json(restaurants)
             }
 
         })

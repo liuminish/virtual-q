@@ -87,7 +87,7 @@ queueRouter.put('/:queueId', (req, res, next) => {
 // GET all queue numbers
 queueRouter.get('/', (req, res, next) => {
     if (req.query.user_id) {
-        const sql = `SELECT * FROM QueueNumbers WHERE user_id=$user_id`;
+        const sql = `SELECT * FROM QueueNumbers LEFT OUTER JOIN Restaurants on QueueNumbers.restaurant_id = Restaurants.id WHERE user_id=$user_id`;
         const values = { $user_id: req.query.user_id }
 
         db.all(sql, values, (err, queueNumbers) => {
@@ -98,7 +98,7 @@ queueRouter.get('/', (req, res, next) => {
             }
         })
     } else if (req.query.restaurant_id) {
-        const sql = `SELECT * FROM QueueNumbers WHERE restaurant_id=$restaurant_id`;
+        const sql = `SELECT * FROM QueueNumbers LEFT OUTER JOIN Users on QueueNumbers.user_id = Users.id WHERE restaurant_id=$restaurant_id`;
         const values = { $restaurant_id: req.query.restaurant_id }
 
         db.all(sql, values, (err, queueNumbers) => {

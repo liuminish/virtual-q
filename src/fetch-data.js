@@ -23,16 +23,7 @@ fetchData.getAllRestaurants = (searchObject) => {
       return new Promise(resolve => resolve([]));
     }
     return response.json().then(jsonResponse => {
-      return jsonResponse.restaurants.map(restaurant => {
-        return {
-          id: restaurant.id,
-          name: restaurant.name,
-          address: restaurant.address,
-          capacity: restaurant.capacity,
-          open_time: restaurant.open_time,
-          close_time: restaurant.close_time
-        };
-      });
+      return jsonResponse
     });
   });
 };
@@ -96,18 +87,7 @@ fetchData.getUserQueueNumbers = userId => {
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      return jsonResponse.map(queue => {
-        return {
-          id: queue.id,
-          number: queue.number,
-          restaurant_id: queue.restaurant_id,
-          user_id: queue.user_id,
-          pax: queue.pax,
-          date_time: queue.date_time,
-          is_cancelled: queue.is_cancelled,
-          is_current: queue.is_current
-        };
-      });
+      return jsonResponse
     });
   });
 };
@@ -121,18 +101,7 @@ fetchData.getRestaurantQueueNumbers = restaurantId => {
       return new Promise(resolve => resolve(null));
     }
     return response.json().then(jsonResponse => {
-      return jsonResponse.map(queue => {
-        return {
-          id: queue.id,
-          number: queue.number,
-          restaurant_id: queue.restaurant_id,
-          user_id: queue.user_id,
-          pax: queue.pax,
-          date_time: queue.date_time,
-          is_cancelled: queue.is_cancelled,
-          is_current: queue.is_current
-        };
-      });
+      return jsonResponse
     });
   });
 };

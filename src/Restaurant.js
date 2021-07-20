@@ -76,8 +76,8 @@ class Restaurant extends React.Component {
                   <TableBody>
                     {this.props.queueNumberList.map((queue) => (
                       <TableRow key={queue.id}>
-                        <TableCell component="th" scope="row">{queue.user_id}</TableCell>
-                        <TableCell align="left">phone number</TableCell>
+                        <TableCell component="th" scope="row">{queue.name}</TableCell>
+                        <TableCell align="left">{queue.phone_number}</TableCell>
                         <TableCell align="left">{queue.date_time}</TableCell>
                         <TableCell align="left">{queue.number}</TableCell>
                         <TableCell align="left">{queue.pax}</TableCell>
